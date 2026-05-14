@@ -11,19 +11,19 @@ import {
   Map,
   List,
   Heart,
-  Clock,
-  Star,
   X,
-  Calendar,
-  Users,
-  Car,
-  Filter
+  Car
 } from 'lucide-react';
 import { useState, useEffect, useMemo } from 'react';
-import Link from 'next/link';
 
 interface BookingModalProps {
-  spot: any;
+  spot: {
+    name: string;
+    type: string;
+    price: number;
+    priceType: string;
+    address: string;
+  } | null;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -161,18 +161,17 @@ export default function FindParking() {
   const [viewMode, setViewMode] = useState<'list' | 'map'>('list');
   const [favorites, setFavorites] = useState<number[]>([]);
   const [recentSearches, setRecentSearches] = useState<string[]>(['Connaught Place', 'DLF Mall', 'IGI Airport']);
-  const [showFilters, setShowFilters] = useState(false);
-  const [bookingSpot, setBookingSpot] = useState<any>(null);
-  const [currentLocation, setCurrentLocation] = useState('');
-
-  // Get user's location (demo)
-  useEffect(() => {
-    setCurrentLocation('New Delhi, India');
-  }, []);
+  const [bookingSpot, setBookingSpot] = useState<{
+    name: string;
+    type: string;
+    price: number;
+    priceType: string;
+    address: string;
+  } | null>(null);
 
   // Filter and sort parking spots
   const filteredAndSortedSpots = useMemo(() => {
-    let filtered = PARKING_SPOTS.filter((spot) => {
+    const filtered = PARKING_SPOTS.filter((spot) => {
       // Search filter
       if (searchQuery) {
         const query = searchQuery.toLowerCase();

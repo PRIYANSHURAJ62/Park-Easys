@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { Car, BookOpen, Wallet, MapPin, MoreVertical } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
@@ -44,12 +45,19 @@ const RECENT_BOOKINGS = [
 ];
 
 export function UserDashboard() {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
     <div className="space-y-8">
       {/* Welcome Section */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={isClient ? { opacity: 0, y: 20 } : { opacity: 1, y: 0 }}
         animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
         className="bg-gradient-to-r from-blue-600 to-green-500 text-white rounded-2xl p-8 md:p-12"
       >
         <h1 className="text-3xl md:text-4xl font-bold mb-2">Welcome back, Rajesh! 👋</h1>
@@ -86,9 +94,9 @@ export function UserDashboard() {
         ].map((stat, idx) => (
           <motion.div
             key={idx}
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={isClient ? { opacity: 0, scale: 0.9 } : { opacity: 1, scale: 1 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: idx * 0.1 }}
+            transition={{ delay: isClient ? idx * 0.1 : 0, duration: 0.5 }}
             className={`bg-gradient-to-br ${stat.color} text-white rounded-2xl p-6`}
           >
             <div className="flex items-start justify-between mb-4">
@@ -104,9 +112,9 @@ export function UserDashboard() {
       <div className="grid md:grid-cols-3 gap-6">
         {/* Bookings Chart */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={isClient ? { opacity: 0, y: 20 } : { opacity: 1, y: 0 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+          transition={{ delay: isClient ? 0.2 : 0, duration: 0.6 }}
           className="md:col-span-2 bg-white dark:bg-slate-800 rounded-2xl p-6 border border-blue-200/20 dark:border-blue-900/20"
         >
           <h3 className="font-bold text-gray-900 dark:text-white mb-4">Bookings This Week</h3>
@@ -130,9 +138,9 @@ export function UserDashboard() {
 
         {/* Parking Types */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={isClient ? { opacity: 0, y: 20 } : { opacity: 1, y: 0 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
+          transition={{ delay: isClient ? 0.3 : 0, duration: 0.6 }}
           className="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-blue-200/20 dark:border-blue-900/20"
         >
           <h3 className="font-bold text-gray-900 dark:text-white mb-4">Parking Types Used</h3>
@@ -172,9 +180,9 @@ export function UserDashboard() {
 
       {/* Recent Bookings */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={isClient ? { opacity: 0, y: 20 } : { opacity: 1, y: 0 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4 }}
+        transition={{ delay: isClient ? 0.4 : 0, duration: 0.6 }}
         className="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-blue-200/20 dark:border-blue-900/20"
       >
         <div className="flex justify-between items-center mb-6">

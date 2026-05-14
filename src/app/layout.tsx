@@ -18,6 +18,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <style>{`
+          * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+          }
+        `}</style>
+      </head>
       <body className="bg-white dark:bg-slate-950 text-gray-900 dark:text-white transition-colors">
         <ThemeProvider>
           <Navbar />
